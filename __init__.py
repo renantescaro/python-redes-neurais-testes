@@ -2,9 +2,9 @@ class Rede:
     def __init__(self):
         self.entradas    = [[0,0], [0,1], [1,0], [1,1]]
         self.saidas      = [0, 0, 0, 1]
-        self.pesos       = [0.1, 0.1]
+        self.pesos       = [0.0, 0.0]
         self.resultado   = []
-        self.apredizagem = 0.001
+        self.apredizagem = 0.1
         self.sucesso     = False
 
         while not self.sucesso:
@@ -27,6 +27,23 @@ class Rede:
                 } )
             posi += 1
 
+    
+    def calcular_saida(self, registro) -> bool:
+        resultado_soma = self.somar(registro, self.pesos)
+        return self.ativar(resultado_soma)
+
+
+    def somar(self, entradas, pesos) -> float:
+        soma = 0
+        for posi in range(len(entradas)):
+            soma += entradas[posi] * pesos[posi]
+        return float(soma)
+
+
+    # step function / função de ativação
+    def ativar(self, soma) -> bool:
+        return 0 if soma < 1 else 1
+
 
     def imprimir_resultado(self):
         for r in self.resultado:
@@ -41,13 +58,15 @@ class Rede:
     def recalcular_pesos(self):
         self.sucesso = True
         for r in self.resultado:
+            # saida calculada / saida esperada
             if r['status'] != r['saida']:
                 self.resultado = []
-                self.sucesso = False
+                self.sucesso   = False
                 erro = self.calcular_valor_erro(
-                    valor_esperado  = r['posicao'],
+                    valor_esperado  = r['saida'],
                     resposta_obtida = r['status'] )
 
+                # atualiza valores dos pesos
                 for p in range(len(self.pesos)):
                     self.pesos[p] = self.calcular_novo_peso(
                         entrada      = float(r['entrada'][p]),
@@ -56,24 +75,8 @@ class Rede:
                         erro         = float(erro) )
 
 
-    def somar(self, entradas, pesos) -> float:
-        soma = 0
-        for posi in range(len(entradas)):
-            soma += entradas[posi] * pesos[posi]
-        return float(soma)
-
-    
-    def calcular_saida(self, registro) -> bool:
-        resultado_soma = self.somar(registro, self.pesos)
-        return self.ativar(resultado_soma)
-
-
-    def ativar(self, soma) -> bool:
-        return 0 if soma < 1 else 1
-
-
     def calcular_valor_erro(self, valor_esperado, resposta_obtida) -> float:
-        return valor_esperado - resposta_obtida
+        return abs(valor_esperado - resposta_obtida)
 
 
     def calcular_novo_peso(self, peso_atual, aprendizagem, entrada, erro) -> float:
