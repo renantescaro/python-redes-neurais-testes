@@ -18,7 +18,6 @@ class Rede:
 
 
     def calcular(self):
-
         # loop pelos grupos de entrada
         posi_oculta = 0
         for entrada in self.entradas:
