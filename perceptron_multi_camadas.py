@@ -42,10 +42,11 @@ class Rede:
         pesos_saida_novos       = camada_oculta_ativada.T.dot(delta_saida)
         self.pesos_camada_saida = (self.pesos_camada_saida * self.momento) + (pesos_saida_novos * self.apredizagem)
 
-        print(self.pesos_camada_saida)
-        # print(media_absoluta)
-        # print(erro_camada_saida)
-
+        print('\n ------------------------ \n ')
+        print('Pesos camada saida ' + str(self.pesos_camada_saida)+'\n')
+        print('Media absoluta ' + str(media_absoluta)+'\n')
+        print('Erro camada saida ' + str(erro_camada_saida)+'\n')
+        print(' ------------------------ \n')
 
     def ativacao(self, soma) -> float:
         return self.sigmoid_function(soma)
