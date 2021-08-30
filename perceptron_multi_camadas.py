@@ -3,27 +3,26 @@ from ativacao import Ativacao
 
 
 class PerceptronMultiCamadas:
-    def __init__(self):
+    def __init__(self, entradas=None, saidas=None):
         # classe com as ativações e suas derivadas
         self.ativacao = Ativacao()
 
-        self.entradas = np.array([
-            [0,0],
-            [0,1],
-            [1,0],
-            [1,1] ])
+        self.entradas = entradas
+        self.saidas   = saidas
 
-        # self.saidas = np.array([
-        #     [0],
-        #     [1],
-        #     [1],
-        #     [0] ])
+        if self.entradas == None:
+            self.entradas = np.array([
+                [0, 0],
+                [0, 1],
+                [1, 0],
+                [1, 1] ])
 
-        self.saidas = np.array([
-            [1],
-            [1],
-            [1],
-            [0] ])
+        if self.saidas == None:
+            self.saidas = np.array([
+                [0],
+                [1],
+                [1],
+                [0] ])
 
         qtd_neuronios_camada_oculta = 300
         self.apredizagem = 0.3
@@ -31,11 +30,15 @@ class PerceptronMultiCamadas:
         self.epocas      = 3000
         self.resultados  = None
 
-        # 2 neuronios camada entrada, 3 na camada oculta
-        self.pesos_camada_oculta = 2 * np.random.random((2, qtd_neuronios_camada_oculta)) -1
+        # 2 neuronios camada entrada
+        self.pesos_camada_oculta = 2 * np.random.random((
+            len(self.entradas[0]),
+            qtd_neuronios_camada_oculta )) -1
 
-        # 3 neuronios camada oculta, 1 na camada saida
-        self.pesos_camada_saida = 2 * np.random.random((qtd_neuronios_camada_oculta, 1)) -1
+        # 1 neuronios na camada saida
+        self.pesos_camada_saida = 2 * np.random.random((
+            qtd_neuronios_camada_oculta, 
+            len(self.saidas[0]) )) -1
 
 
     def calcular(self):
