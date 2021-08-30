@@ -2,7 +2,7 @@ import numpy as np
 from ativacao import Ativacao
 
 
-class Rede:
+class PerceptronMultiCamadas:
     def __init__(self):
         # classe com as ativações e suas derivadas
         self.ativacao = Ativacao()
@@ -20,10 +20,10 @@ class Rede:
         #     [0] ])
 
         self.saidas = np.array([
-            [2],
-            [4],
-            [7],
-            [8] ])
+            [1],
+            [1],
+            [1],
+            [0] ])
 
         qtd_neuronios_camada_oculta = 300
         self.apredizagem = 0.3
@@ -37,14 +37,11 @@ class Rede:
         # 3 neuronios camada oculta, 1 na camada saida
         self.pesos_camada_saida = 2 * np.random.random((qtd_neuronios_camada_oculta, 1)) -1
 
-        self.calcular()
-
 
     def calcular(self):
         for epoca in range(self.epocas):
             soma_sinapse_oculta   = np.dot(self.entradas, self.pesos_camada_oculta)
             camada_oculta_ativada = self.ativacao.ativacao(soma_sinapse_oculta)
-            print('Resultados: '+str(soma_sinapse_oculta))
             soma_sinapse_saida    = np.dot(camada_oculta_ativada, self.pesos_camada_saida)
             camada_saida_ativada  = self.ativacao.ativacao(soma_sinapse_saida)
             self.resultados       = camada_saida_ativada
@@ -52,7 +49,7 @@ class Rede:
             # calculo do erro
             erro_camada_saida = self.saidas - camada_saida_ativada
             media_absoluta    = np.mean(np.abs(erro_camada_saida))
-            #print('Erro: '+str(media_absoluta))
+            print('Erro: '+str(media_absoluta))
 
             # calcula Deltas
             delta_saida  = erro_camada_saida * self.ativacao.ativacao_derivada(camada_saida_ativada)
@@ -71,6 +68,3 @@ class Rede:
         print('Saidas:\n' + str(self.resultados))
         # print('Pesos Camada Saida \n' + str(self.pesos_camada_saida))
         # print('Pesos Camada Oculta \n' + str(self.pesos_camada_oculta))
-
-
-Rede()
