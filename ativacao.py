@@ -3,11 +3,11 @@ import numpy as np
 
 class Ativacao:
     def ativacao(self, soma):
-        return self.leaky_re_lu(soma)
+        return self.sigmoid(soma)
 
 
     def ativacao_derivada(self, valor_ativacao):
-        return self.leaky_re_lu_derivada(valor_ativacao)
+        return self.sigmoid_derivada(valor_ativacao)
 
 
     def re_lu(self, x):
