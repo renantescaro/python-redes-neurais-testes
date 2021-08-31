@@ -4,4 +4,4 @@
 * Ativação por Sigmoid Function
 * Treinamento por Backpropagation
 
-<img src='PMC_MLP.png'>
+<img src='assets/PMC_MLP.png'>
