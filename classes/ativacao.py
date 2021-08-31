@@ -28,8 +28,8 @@ class Ativacao:
         return dx
 
 
-    def sigmoid(self, soma):
-        return 1 / ( 1 + np.exp(-soma) )
+    def sigmoid(self, soma:np.longdouble):
+        return 1 / ( 1 + np.exp(-soma, dtype=np.longdouble) )
 
 
     def sigmoid_derivada(self, valor_ativacao):
