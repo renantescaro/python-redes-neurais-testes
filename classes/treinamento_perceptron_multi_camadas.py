@@ -1,5 +1,6 @@
+from classes.debug import Debug
 import numpy as np
-from ativacao import Ativacao
+from classes.ativacao import Ativacao
 
 
 class TreinamentoPerceptronMultiCamadas:
@@ -10,10 +11,10 @@ class TreinamentoPerceptronMultiCamadas:
         self.entradas = entradas
         self.saidas   = saidas
 
-        qtd_neuronios_camada_oculta = 300
-        self.apredizagem = 0.3
+        qtd_neuronios_camada_oculta = 333
+        self.apredizagem = 0.4
         self.momento     = 1
-        self.epocas      = 30000
+        self.epocas      = 6000
         self.resultados  = None
 
         self.pesos_camada_oculta = 2 * np.random.random((
@@ -23,6 +24,9 @@ class TreinamentoPerceptronMultiCamadas:
         self.pesos_camada_saida = 2 * np.random.random((
             qtd_neuronios_camada_oculta, 
             len(self.saidas[0]) )) -1
+
+        Debug(self.pesos_camada_oculta)
+        Debug(self.pesos_camada_saida)
 
 
     def calcular(self):
@@ -50,11 +54,22 @@ class TreinamentoPerceptronMultiCamadas:
             pesos_oculta_novos       = self.entradas.T.dot(delta_oculta)
             self.pesos_camada_oculta = (self.pesos_camada_oculta * self.momento) + (pesos_oculta_novos * self.apredizagem)
 
+            return
 
         print('\n ------------------------ \n ')
-        print('Saida 1 :\n' + str(self.resultados[0]))
-        print('Saida 2 :\n' + str(self.resultados[1]))
-        print('Saida 3 :\n' + str(self.resultados[2]))
-        print('Saida 4 :\n' + str(self.resultados[3]))
+        linha_atual = 1
+        for linha in self.resultados:
+            print(str(round(linha[0]))+' '+
+                  str(round(linha[1]))+' '+
+                  str(round(linha[2]))+' '+
+                  str(round(linha[3]))+' '+
+                  str(round(linha[4]))+' '+
+                  str(round(linha[5])) )
+            if linha_atual == 2:
+                print('-----')
+                linha_atual = 1
+            else:
+                linha_atual +=1
+
         # print('Pesos Camada Saida \n' + str(self.pesos_camada_saida))
         # print('Pesos Camada Oculta \n' + str(self.pesos_camada_oculta))
