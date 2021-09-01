@@ -1,4 +1,5 @@
 import numpy as np
+import tensorflow as tf
 
 
 class Ativacao:
@@ -28,8 +29,16 @@ class Ativacao:
         return dx
 
 
-    def sigmoid(self, soma:np.longdouble):
-        return 1 / ( 1 + np.exp(-soma, dtype=np.longdouble) )
+    def elu(x):
+	    return tf.nn.elu(x).numpy()
+
+
+    def elu_derivada(z,alpha):
+        pass
+
+
+    def sigmoid(self, soma):
+        return 1 / ( 1 + np.exp(-soma) )
 
 
     def sigmoid_derivada(self, valor_ativacao):

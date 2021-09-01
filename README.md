@@ -5,3 +5,6 @@
 * Treinamento por Backpropagation
 
 <img src='assets/PMC_MLP.png'>
+
+### dependencias
+* pip install --upgrade tensorflow

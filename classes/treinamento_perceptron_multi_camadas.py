@@ -1,5 +1,6 @@
-from classes.debug import Debug
+import json
 import numpy as np
+from classes.debug import Debug
 from classes.ativacao import Ativacao
 
 
@@ -11,22 +12,19 @@ class TreinamentoPerceptronMultiCamadas:
         self.entradas = entradas
         self.saidas   = saidas
 
-        qtd_neuronios_camada_oculta = 333
-        self.apredizagem = 0.4
+        qtd_neuronios_camada_oculta = 500
+        self.apredizagem = 0.3
         self.momento     = 1
-        self.epocas      = 6000
+        self.epocas      = 100000
         self.resultados  = None
 
-        self.pesos_camada_oculta = 2 * np.random.random((
+        self.pesos_camada_oculta:np.ndarray = 2 * np.random.random((
             len(self.entradas[0]),
             qtd_neuronios_camada_oculta )) -1
 
-        self.pesos_camada_saida = 2 * np.random.random((
+        self.pesos_camada_saida:np.ndarray = 2 * np.random.random((
             qtd_neuronios_camada_oculta, 
             len(self.saidas[0]) )) -1
-
-        Debug(self.pesos_camada_oculta)
-        Debug(self.pesos_camada_saida)
 
 
     def calcular(self):
@@ -54,7 +52,6 @@ class TreinamentoPerceptronMultiCamadas:
             pesos_oculta_novos       = self.entradas.T.dot(delta_oculta)
             self.pesos_camada_oculta = (self.pesos_camada_oculta * self.momento) + (pesos_oculta_novos * self.apredizagem)
 
-            return
 
         print('\n ------------------------ \n ')
         linha_atual = 1
