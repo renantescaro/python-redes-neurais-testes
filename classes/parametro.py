@@ -2,7 +2,7 @@ import os
 import numpy as np
 from classes.imagem import Imagem
 
-class Entrada:
+class Parametro:
     def __init__(self):
         self.arquivos  = []
         self.entradas  = []
@@ -10,13 +10,18 @@ class Entrada:
         self.caminho_entradas = 'assets/treinamento/'
 
 
-    def listar_arquivos(self):
+    def carregar_assets_treinamento(self):
+        self._listar_arquivos()
+        self._ler_imagens()
+
+
+    def _listar_arquivos(self):
         for p, _, files in os.walk(os.path.abspath(self.caminho_entradas)):
             for file in files:
                 self.arquivos.append(file)
 
 
-    def ler_imagens(self):
+    def _ler_imagens(self):
         for nome_imagem_com_extensao in self.arquivos:
             self._montar_entradas(nome_imagem_com_extensao)
             self._montar_saidas(nome_imagem_com_extensao)
@@ -25,7 +30,7 @@ class Entrada:
     def _montar_entradas(self, nome_imagem_com_extensao):
         entrada = Imagem(self.caminho_entradas+str(nome_imagem_com_extensao)).array()
         self.entradas.append(entrada)
-    
+
 
     def _montar_saidas(self, nome_imagem_com_extensao):
         saida_numero = []
@@ -36,11 +41,6 @@ class Entrada:
             saida_numero.append(int(bit))
         self.saidas.append(saida_numero)
 
-    
+
     def _caracter_entrada_para_binario(self, caracter):
-        return str(format(int(caracter), '04b'))
-
-
-    def teste(self):
-        self.listar_arquivos()
-        self.ler_imagens()
+        return str(format(int(caracter), '06b'))
