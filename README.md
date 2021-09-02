@@ -8,3 +8,4 @@
 
 ### dependencias
 * pip install --upgrade tensorflow
+* pip install matplotlib
