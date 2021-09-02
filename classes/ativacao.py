@@ -18,23 +18,31 @@ class Ativacao:
     def re_lu_derivada(self, x):
         return 1. * (x > 0)
 
-    
+
     def leaky_re_lu(self, x):
-        return np.where(x > 0, x, x * 0.01)
-    
+        return np.where(x > 0, x, x * 0.01).astype(np.float)
+
 
     def leaky_re_lu_derivada(self, x):
-        dx = np.ones_like(x)
-        dx[x < 0] = 0.01
-        return dx
+        return np.sum([
+            ((x > 0) * x),
+            ((x <= 0) * x * 0.01)],
+            dtype=np.float )
 
 
-    # def elu(x):
-	#     return tf.nn.elu(x).numpy()
+    def elu(self, x, alpha=1):
+	    less_than_zero =  (np.zeros_like(x) >= x).astype(np.float)
+	    less_than_zero *= (np.exp(x) - 1)*alpha
+	    grt_than_zero  =  (np.zeros_like(x) < x).astype(np.float)
+	    grt_than_zero  *= x
+	    return less_than_zero + grt_than_zero
 
 
-    def elu_derivada(z,alpha):
-        pass
+    def elu_derivada(self, x, alpha=1):
+        less_than_zero =  (np.zeros_like(x) >= x).astype(np.float)
+        less_than_zero *= self.elu(x)+alpha
+        grt_than_zero  =  (np.zeros_like(x) < x).astype(np.float)
+        return less_than_zero + grt_than_zero
 
 
     def sigmoid(self, soma):
@@ -43,3 +51,11 @@ class Ativacao:
 
     def sigmoid_derivada(self, valor_ativacao):
         return valor_ativacao * (1 - valor_ativacao)
+
+
+    def tanh(self, x):
+        return 2*self.sigmoid(2*x) - 1
+
+
+    def tanh_derivada(self, x):
+        return 1 - self.tanh(x) ** 2
