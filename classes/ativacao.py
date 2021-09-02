@@ -1,5 +1,5 @@
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
 
 
 class Ativacao:
@@ -29,8 +29,8 @@ class Ativacao:
         return dx
 
 
-    def elu(x):
-	    return tf.nn.elu(x).numpy()
+    # def elu(x):
+	#     return tf.nn.elu(x).numpy()
 
 
     def elu_derivada(z,alpha):
