@@ -43,4 +43,4 @@ class Parametro:
 
 
     def _caracter_entrada_para_binario(self, caracter):
-        return str(format(int(caracter), '06b'))
+        return str(format(ord(str(caracter)), '07b'))
