@@ -1,9 +1,7 @@
 import numpy as np
-import sys
-sys.path.append('C:\_TCC_\python-redes-neurais-testes')
 from classes.grafico import Grafico
 from classes.parametro import Parametro
-from classes.treinamento_perceptron_multi_camadas import TreinamentoPerceptronMultiCamadas
+from classes.treinamento_perceptron_multi_camadas_numpy import TreinamentoPerceptronMultiCamadas
 
 
 parametro = Parametro()
