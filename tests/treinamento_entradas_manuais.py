@@ -1,6 +1,8 @@
 import numpy as np
+import sys
+sys.path.append('C:\Users\renan.tescaro\Desktop\python\python-redes-neurais-testes')
 from classes.imagem import Imagem
-from classes.treinamento_perceptron_multi_camadas import TreinamentoPerceptronMultiCamadas
+from classes.treinamento_perceptron_multi_camadas_manual import TreinamentoPerceptronMultiCamadas
 
 # Entrada().ler_imagens()
 
