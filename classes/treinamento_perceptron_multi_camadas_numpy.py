@@ -5,7 +5,7 @@ from classes.ativacao import Ativacao
 
 
 class TreinamentoPerceptronMultiCamadas:
-    def __init__(self, entradas=None, saidas=None):
+    def __init__(self, entradas=None, saidas=None) -> None:
         # classe com as ativações e suas derivadas
         self._ativacao = Ativacao()
 
@@ -21,14 +21,16 @@ class TreinamentoPerceptronMultiCamadas:
 
         self.pesos_camada_oculta:np.ndarray = 2 * np.random.random((
             len(self.entradas[0]),
-            qtd_neuronios_camada_oculta )) -1
+            qtd_neuronios_camada_oculta
+        )) -1
 
         self.pesos_camada_saida:np.ndarray = 2 * np.random.random((
-            qtd_neuronios_camada_oculta, 
-            len(self.saidas[0]) )) -1
+            qtd_neuronios_camada_oculta,
+            len(self.saidas[0])
+        )) -1
 
 
-    def calcular(self):
+    def calcular(self) -> None:
         for epoca in range(self.epocas):
             soma_sinapse_oculta   = np.dot(self.entradas, self.pesos_camada_oculta)
             camada_oculta_ativada = self._ativacao.ativacao(soma_sinapse_oculta)

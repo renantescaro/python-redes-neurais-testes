@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Imagem:
-    def __init__(self, caminho_arquivo):
+    def __init__(self, caminho_arquivo:str) -> None:
         imagem     = Image.open(caminho_arquivo)
         self.data  = np.array(imagem.convert('L'))
         self.type  = type(self.data)

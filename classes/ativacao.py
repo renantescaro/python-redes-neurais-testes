@@ -31,11 +31,11 @@ class Ativacao:
 
 
     def elu(self, x, alpha=1):
-	    less_than_zero =  (np.zeros_like(x) >= x).astype(np.float)
-	    less_than_zero *= (np.exp(x) - 1)*alpha
-	    grt_than_zero  =  (np.zeros_like(x) < x).astype(np.float)
-	    grt_than_zero  *= x
-	    return less_than_zero + grt_than_zero
+        less_than_zero =  (np.zeros_like(x) >= x).astype(np.float)
+        less_than_zero *= (np.exp(x) - 1)*alpha
+        grt_than_zero  =  (np.zeros_like(x) < x).astype(np.float)
+        grt_than_zero  *= x
+        return less_than_zero + grt_than_zero
 
 
     def elu_derivada(self, x, alpha=1):

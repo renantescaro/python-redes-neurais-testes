@@ -5,7 +5,7 @@ from classes.ativacao import Ativacao
 
 
 class TreinamentoPerceptronMultiCamadas:
-    def __init__(self, entradas=None, saidas=None):
+    def __init__(self, entradas=None, saidas=None) -> None:
         # classe com as ativações e suas derivadas
         self.ativacao = Ativacao()
 
@@ -20,14 +20,16 @@ class TreinamentoPerceptronMultiCamadas:
 
         self.pesos_camada_oculta:np.ndarray = 2 * np.random.random((
             len(self.entradas[0]),
-            qtd_neuronios_camada_oculta )) -1
+            qtd_neuronios_camada_oculta
+        )) -1
 
         self.pesos_camada_saida:np.ndarray = 2 * np.random.random((
-            qtd_neuronios_camada_oculta, 
-            len(self.saidas[0]) )) -1
+            qtd_neuronios_camada_oculta,
+            len(self.saidas[0])
+        )) -1
 
 
-    def calcular(self):
+    def calcular(self) -> None:
         for epoca in range(self.epocas):
             soma_sinapse_oculta   = np.dot(self.entradas, self.pesos_camada_oculta)
             camada_oculta_ativada = self.ativacao.ativacao(soma_sinapse_oculta)
@@ -38,7 +40,7 @@ class TreinamentoPerceptronMultiCamadas:
             # calculo do erro
             erro_camada_saida = self.saidas - camada_saida_ativada
             media_absoluta    = np.mean(np.abs(erro_camada_saida))
-            print('Erro: '+str(media_absoluta))
+            print(f'Erro: {media_absoluta}')
 
             # calcula Deltas
             delta_saida  = erro_camada_saida * self.ativacao.ativacao_derivada(camada_saida_ativada)

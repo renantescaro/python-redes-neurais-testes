@@ -6,6 +6,12 @@
 
 <img src='assets/PMC_MLP.png'>
 
-### dependencias
-* pip install --upgrade tensorflow
-* pip install matplotlib
+### Dependencias
+* python -m venv venv
+* venv\Scripts\activate.bat
+* pip install -r requirements.txt
+
+
+### Executar:
+* venv\Scripts\activate.bat
+* python run.py

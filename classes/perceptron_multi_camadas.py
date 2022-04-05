@@ -3,8 +3,13 @@ from ativacao import Ativacao
 
 
 class PerceptronMultiCamadas:
-    def __init__(self, entradas=None, saidas=None,
-        pesos_camada_oculta=None, pesos_camada_saida=None):
+    def __init__(
+        self,
+        entradas=None,
+        saidas=None,
+        pesos_camada_oculta=None,
+        pesos_camada_saida=None
+    ) -> None:
 
         self.entradas            = entradas
         self.saidas              = saidas
@@ -15,7 +20,7 @@ class PerceptronMultiCamadas:
         self.resultados = None
 
 
-    def calcular(self):
+    def calcular(self) -> None:
         soma_sinapse_oculta   = np.dot(self.entradas, self.pesos_camada_oculta)
         camada_oculta_ativada = self.ativacao.ativacao(soma_sinapse_oculta)
         soma_sinapse_saida    = np.dot(camada_oculta_ativada, self.pesos_camada_saida)
