@@ -1,16 +1,26 @@
-import json
+import pickle
 import numpy as np
-from classes.debug import Debug
+from classes.dados import Dados
 from classes.ativacao import Ativacao
+from classes.parametro import Parametro
 
 
 class TreinamentoPerceptronMultiCamadas:
-    def __init__(self, entradas=None, saidas=None) -> None:
-        # classe com as ativações e suas derivadas
-        self._ativacao = Ativacao()
+    def __init__(
+        self,
+        dados:Dados,
+        parametro: Parametro,
+        ativacao: Ativacao
+    ) -> None:
 
-        self.entradas = entradas
-        self.saidas   = saidas
+        # classe com as ativações e suas derivadas
+        self._ativacao = ativacao
+        self._dados = dados
+        self._parametro = parametro
+
+        self._parametro.carregar_assets_treinamento()
+        self.entradas = np.array(self._parametro.entradas)
+        self.saidas = np.array(self._parametro.saidas)
 
         qtd_neuronios_camada_oculta = 300
         self.apredizagem = 0.3
@@ -28,6 +38,9 @@ class TreinamentoPerceptronMultiCamadas:
             qtd_neuronios_camada_oculta,
             len(self.saidas[0])
         )) -1
+
+        # self.pesos_camada_oculta = self._dados.get('pesos_camada_oculta')
+        # self.pesos_camada_saida = self._dados.get('pesos_camada_saida')
 
 
     def calcular(self) -> None:
@@ -60,17 +73,23 @@ class TreinamentoPerceptronMultiCamadas:
         print('\n ------------------------ \n ')
         linha_atual = 1
         for linha in self.resultados:
-            print(str(round(linha[0]))+' '+
-                  str(round(linha[1]))+' '+
-                  str(round(linha[2]))+' '+
-                  str(round(linha[3]))+' '+
-                  str(round(linha[4]))+' '+
-                  str(round(linha[5])) )
+            print(
+                str(round(linha[0]))+' '+
+                str(round(linha[1]))+' '+
+                str(round(linha[2]))+' '+
+                str(round(linha[3]))+' '+
+                str(round(linha[4]))+' '+
+                str(round(linha[5]))+' '+
+                str(round(linha[6]))
+            )
             if linha_atual == 2:
                 print('-----')
                 linha_atual = 1
             else:
                 linha_atual +=1
+
+        self._dados.set('pesos_camada_saida', self.pesos_camada_saida)
+        self._dados.set('pesos_camada_oculta', self.pesos_camada_oculta)
 
         # print('Pesos Camada Saida \n' + str(self.pesos_camada_saida))
         # print('Pesos Camada Oculta \n' + str(self.pesos_camada_oculta))

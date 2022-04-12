@@ -1,6 +1,7 @@
 import json
 import numpy as np
 from classes.debug import Debug
+from classes.dados import Dados
 from classes.ativacao import Ativacao
 
 
@@ -8,6 +9,7 @@ class TreinamentoPerceptronMultiCamadas:
     def __init__(self, entradas=None, saidas=None) -> None:
         # classe com as ativações e suas derivadas
         self.ativacao = Ativacao()
+        self._dados = Dados()
 
         self.entradas = entradas
         self.saidas   = saidas
@@ -18,15 +20,18 @@ class TreinamentoPerceptronMultiCamadas:
         self.epocas      = 100000
         self.resultados  = None
 
-        self.pesos_camada_oculta:np.ndarray = 2 * np.random.random((
-            len(self.entradas[0]),
-            qtd_neuronios_camada_oculta
-        )) -1
+        # self.pesos_camada_oculta:np.ndarray = 2 * np.random.random((
+        #     len(self.entradas[0]),
+        #     qtd_neuronios_camada_oculta
+        # )) -1
 
-        self.pesos_camada_saida:np.ndarray = 2 * np.random.random((
-            qtd_neuronios_camada_oculta,
-            len(self.saidas[0])
-        )) -1
+        # self.pesos_camada_saida:np.ndarray = 2 * np.random.random((
+        #     qtd_neuronios_camada_oculta,
+        #     len(self.saidas[0])
+        # )) -1
+
+        self.pesos_camada_oculta = self._dados.get('pesos_camada_oculta')
+        self.pesos_camada_saida = self._dados.get('pesos_camada_saida')
 
 
     def calcular(self) -> None:
@@ -58,12 +63,15 @@ class TreinamentoPerceptronMultiCamadas:
         print('\n ------------------------ \n ')
         linha_atual = 1
         for linha in self.resultados:
-            print(str(round(linha[0]))+' '+
-                  str(round(linha[1]))+' '+
-                  str(round(linha[2]))+' '+
-                  str(round(linha[3]))+' '+
-                  str(round(linha[4]))+' '+
-                  str(round(linha[5])) )
+            print(
+                str(round(linha[0]))+' '+
+                str(round(linha[1]))+' '+
+                str(round(linha[2]))+' '+
+                str(round(linha[3]))+' '+
+                str(round(linha[4]))+' '+
+                str(round(linha[5]))+' '+
+                str(round(linha[6]))
+            )
             if linha_atual == 2:
                 print('-----')
                 linha_atual = 1
