@@ -1,6 +1,7 @@
 import os
-import numpy as np
+from typing import Any, List, Tuple
 from classes.imagem import Imagem
+
 
 class Parametro:
     def __init__(self) -> None:
@@ -10,9 +11,11 @@ class Parametro:
         self.caminho_entradas = 'assets/treinamento/'
 
 
-    def carregar_assets_treinamento(self) -> None:
+    def carregar_assets_treinamento(self) -> Tuple[Any, Any]:
         self._listar_arquivos()
         self._ler_imagens()
+
+        return self.entradas, self.saidas
 
 
     def _listar_arquivos(self) -> None:
@@ -27,20 +30,18 @@ class Parametro:
             self._montar_saidas(nome_imagem_com_extensao)
 
 
-    def _montar_entradas(self, nome_imagem_com_extensao) -> None:
-        entrada = Imagem(self.caminho_entradas+str(nome_imagem_com_extensao)).array()
+    def _montar_entradas(self, nome_imagem_com_extensao:str) -> None:
+        entrada = Imagem(f'{self.caminho_entradas}{nome_imagem_com_extensao}').array()
         self.entradas.append(entrada)
 
 
-    def _montar_saidas(self, nome_imagem_com_extensao) -> None:
-        saida_numero = []
-        nome = str(nome_imagem_com_extensao).replace('.png', '')
+    def _montar_saidas(self, nome_imagem_com_extensao:str) -> None:
+        nome = nome_imagem_com_extensao.replace('.png', '')
         caracter_entrada, _ = nome.split('_')
         binario = self._caracter_entrada_para_binario(caracter_entrada)
-        for bit in binario:
-            saida_numero.append(int(bit))
+        saida_numero = [int(bit) for bit in binario]
         self.saidas.append(saida_numero)
 
 
-    def _caracter_entrada_para_binario(self, caracter) -> str:
-        return str(format(ord(str(caracter)), '07b'))
+    def _caracter_entrada_para_binario(self, caracter:str) -> str:
+        return format(ord(caracter), '07b')
