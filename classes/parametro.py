@@ -4,14 +4,15 @@ from classes.imagem import Imagem
 
 
 class Parametro:
-    def __init__(self) -> None:
+    def __init__(self, imagem: Imagem) -> None:
         self.arquivos  = []
         self.entradas  = []
         self.saidas    = []
         self.caminho_entradas = 'assets/treinamento/'
+        self.imagem = imagem
 
 
-    def carregar_assets_treinamento(self) -> Tuple[Any, Any]:
+    def carregar_assets_treinamento(self) -> Tuple[List, List[List[int]]]:
         self._listar_arquivos()
         self._ler_imagens()
 
@@ -31,7 +32,9 @@ class Parametro:
 
 
     def _montar_entradas(self, nome_imagem_com_extensao:str) -> None:
-        entrada = Imagem(f'{self.caminho_entradas}{nome_imagem_com_extensao}').array()
+        entrada = self.imagem.converter_np_array(
+            caminho_arquivo=f'{self.caminho_entradas}{nome_imagem_com_extensao}'
+        )
         self.entradas.append(entrada)
 
 
@@ -44,4 +47,9 @@ class Parametro:
 
 
     def _caracter_entrada_para_binario(self, caracter:str) -> str:
-        return format(ord(caracter), '07b')
+        try:
+            convertido = int(caracter)
+        except ValueError:
+            convertido = ord(caracter)
+
+        return format(convertido, '08b')

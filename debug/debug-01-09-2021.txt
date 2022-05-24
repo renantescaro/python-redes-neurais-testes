@@ -1,1 +1,0 @@
-01/09/2021 08:22:26: <class 'numpy.ndarray'>

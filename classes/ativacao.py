@@ -46,6 +46,11 @@ class Ativacao:
 
     def _sigmoid(self, soma):
         return 1 / ( 1 + np.exp(-soma) )
+        # with np.errstate(over='raise'):
+        #     try:
+        #         return 1 / ( 1 + np.exp(-soma) )
+        #     except FloatingPointError as e:
+        #         print(f'FloatingPointError, soma: {soma}, Except: {e}')
 
 
     def _sigmoid_derivada(self, valor_ativacao):

@@ -21,6 +21,6 @@ class Dados:
         savetxt(arquivo, valor, delimiter=',')
 
 
-    def get(self, chave:str):
+    def get(self, chave:str) -> Any:
         arquivo = self._caminho_arquivo(chave)
         return loadtxt(arquivo, delimiter=',')
