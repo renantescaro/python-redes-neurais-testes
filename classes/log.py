@@ -4,9 +4,9 @@ from datetime import datetime as dt
 
 class Log:
     @staticmethod
-    def info(texto:str, nome_arquivo='log') -> None:
+    def info(texto:str, nome_arquivo='log', tipo='.log') -> None:
         data    = Log._data_atual_string_txt()
-        arquivo = f'log/{nome_arquivo}-{data}.log'
+        arquivo = f'log/{nome_arquivo}-{data}{tipo}'
 
         f = None
         f = open(arquivo, 'a') if os.path.exists(arquivo) else open(arquivo, 'w')

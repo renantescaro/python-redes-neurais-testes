@@ -8,13 +8,20 @@ from classes.treinamento_perceptron_multi_camadas_numpy \
     import TreinamentoPerceptronMultiCamadas
 
 
-treinamento = TreinamentoPerceptronMultiCamadas(
-    dados=Dados(versao=1),
-    parametro=Parametro(
-        imagem=Imagem()
-    ),
-    ativacao=Ativacao()
-)
-treinamento.calcular()
+porc_erro = 100
+dados = Dados(versao=1)
+for _ in range(1, 100000):
+    treinamento = TreinamentoPerceptronMultiCamadas(
+        parametro=Parametro(
+            imagem=Imagem()
+        ),
+        ativacao=Ativacao()
+    )
+    porc_erro_atual = treinamento.calcular()
 
-Grafico().medias_absolutas(treinamento.medias_absolutas)
+    if porc_erro_atual < porc_erro:
+        porc_erro = porc_erro_atual
+        dados.set('pesos_camada_saida', treinamento.pesos_camada_saida)
+        dados.set('pesos_camada_oculta', treinamento.pesos_camada_oculta)
+
+# Grafico().medias_absolutas(treinamento.medias_absolutas)

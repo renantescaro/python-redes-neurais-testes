@@ -30,17 +30,13 @@ class PerceptronMultiCamadas:
         """
 
         print('\n\n\n-------------')
-        linha_atual = 1
-        for linha in self.resultados:
+        for index, linha in enumerate(self.resultados, start=1):
+            if (index % 2) == 0:
+                numero_binario = ''.join(str(round(caracter)) for caracter in linha)
+                numero_inteiro = int(numero_binario, 2)
 
-            fila = ''.join(f'{round(caracter)} ' for caracter in linha)
-            print(fila)
-
-            if linha_atual == 2:
+                print(f'{numero_inteiro} {numero_binario}')
                 print('-------------')
-                linha_atual = 1
-            else:
-                linha_atual +=1
 
 
     def calcular(self) -> None:
