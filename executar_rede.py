@@ -1,16 +1,17 @@
-from classes.ativacao import Ativacao
-from classes.dados import Dados
-from classes.parametro import Parametro
-from classes.imagem import Imagem
-from classes.perceptron_multi_camadas_numpy import \
-    PerceptronMultiCamadas
+from app.service.ativacoes import Sigmoid
+from random import randrange
+from app.service import (
+    Imagem, Parametro,
+    Dados, Grafico,
+    PerceptronMultiCamadas)
 
 
 rede = PerceptronMultiCamadas(
-    dados=Dados(versao=1),
+    dados=Dados(versao=3),
     parametro=Parametro(
-        imagem=Imagem()
+        imagem=Imagem(),
+        sub_pasta='numeros_placas_teste/'
     ),
-    ativacao=Ativacao()
+    ativacao=Sigmoid()
 )
-rede.calcular()
+rede.executar()
