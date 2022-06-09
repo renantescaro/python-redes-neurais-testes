@@ -98,6 +98,7 @@ class TreinamentoPerceptronMultiCamadas:
         parametro_id = self._registro.salvar(
             self.qtd_neuronios_camada_oculta,
             self.apredizagem,
+            self._ativacao,
         )
 
         porcentagem_erro = 0.0
