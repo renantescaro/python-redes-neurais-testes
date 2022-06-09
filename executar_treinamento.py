@@ -1,4 +1,4 @@
-from app.service.ativacoes import Sigmoid
+from app.service.ativacoes import Sigmoid, Tanh, LeakyRelu
 from random import randrange
 from app.service import (
     Imagem, Parametro, Dados,
@@ -11,7 +11,10 @@ dados = Dados(versao=3)
 for _ in range(1, 100000):
     treinamento = TreinamentoPerceptronMultiCamadas(
         ativacao=Sigmoid(),
-        registro=Registro(),
+        registro=Registro(
+            cpu='i5-7300HQ',
+            vga='GTX 1050',
+        ),
         parametro=Parametro(
             imagem=Imagem(),
             apredizagem=0.2,
