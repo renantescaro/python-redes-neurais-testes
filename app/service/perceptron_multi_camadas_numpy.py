@@ -10,13 +10,10 @@ class PerceptronMultiCamadas:
         self,
         dados: Dados,
         parametro: Parametro,
-        ativacao: AtivacaoContract
     ) -> None:
-
-        self._ativacao = ativacao
         self._dados = dados
         self._parametro = parametro
-
+        self._ativacao = self._parametro.ativacao
         self.pesos_camada_oculta = self._dados.get('pesos_camada_oculta')
         self.pesos_camada_saida = self._dados.get('pesos_camada_saida')
 
@@ -33,12 +30,10 @@ class PerceptronMultiCamadas:
             print('\n\n\n sem resultados!')
             return
 
-        print('\n\n\n-------------')
-        for linha in self.resultados:
-            numero_binario = ''.join(str(round(caracter)) for caracter in linha)
-            numero_inteiro = int(numero_binario, 2)
+        for index, linha in enumerate(self.resultados, start=1):
+            numero_binario = ' '.join(str(round(caracter)) for caracter in linha)
 
-            print(f'{numero_inteiro} {numero_binario}')
+            print(f'{numero_binario}')
             print('-------------')
 
 

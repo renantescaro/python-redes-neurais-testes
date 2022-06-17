@@ -11,3 +11,7 @@ class AtivacaoContract(ABC):
     @abstractmethod
     def derivar(self, valor: Any) -> Any:
         raise NotImplementedError()
+
+    @abstractmethod
+    def __str__(self) -> str:
+        raise NotImplementedError()

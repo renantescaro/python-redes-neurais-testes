@@ -8,19 +8,17 @@ class TreinamentoPerceptronMultiCamadas:
         self,
         parametro: Parametro,
         registro: Registro,
-        ativacao: AtivacaoContract
     ) -> None:
         self._parametro = parametro
-        self._ativacao = ativacao
         self._registro = registro
-
+        self._ativacao = self._parametro.ativacao
         self.apredizagem = self._parametro.apredizagem
         self.epocas = self._parametro.epocas
         self.qtd_neuronios_camada_oculta = self._parametro.qtd_neuronios_camada_oculta
         self.momento = self._parametro.momento
 
-        self.medias_absolutas = []
         self.resultados  = None
+        self.medias_absolutas = []
 
 
     def _delta_saida(self, erro_camada_saida, camada_saida_ativada):
@@ -98,6 +96,7 @@ class TreinamentoPerceptronMultiCamadas:
         parametro_id = self._registro.salvar(
             self.qtd_neuronios_camada_oculta,
             self.apredizagem,
+            self._ativacao,
         )
 
         porcentagem_erro = 0.0
@@ -113,6 +112,15 @@ class TreinamentoPerceptronMultiCamadas:
             media_absoluta    = np.mean(np.abs(erro_camada_saida))
             self.medias_absolutas.append((media_absoluta*100))
             porcentagem_erro = media_absoluta*100
+
+            # evitar erros
+            if porcentagem_erro <  0.1:
+                self._registro.atualizar(
+                    porcentagem_erro,
+                    parametro_id
+                )
+                return porcentagem_erro
+
 
             # calcula Deltas
             delta_saida  = self._delta_saida(erro_camada_saida, camada_saida_ativada)
@@ -135,5 +143,4 @@ class TreinamentoPerceptronMultiCamadas:
             porcentagem_erro,
             parametro_id
         )
-
         return porcentagem_erro

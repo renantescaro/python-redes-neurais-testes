@@ -1,4 +1,4 @@
-from app.service.ativacoes import Sigmoid
+from app.service.ativacoes import Sigmoid, Tanh, LeakyRelu
 from random import randrange
 from app.service import (
     Imagem, Parametro, Dados,
@@ -7,16 +7,19 @@ from app.service import (
 
 
 porc_erro = 100
-dados = Dados(versao=3)
+dados = Dados(versao=4)
 for _ in range(1, 100000):
     treinamento = TreinamentoPerceptronMultiCamadas(
-        ativacao=Sigmoid(),
-        registro=Registro(),
+        registro=Registro(
+            cpu='i5-7300HQ',
+            vga='GTX 1050',
+        ),
         parametro=Parametro(
+            ativacao=Tanh(),
             imagem=Imagem(),
             apredizagem=0.2,
-            epocas=30000,
-            qtd_neuronios_camada_oculta=randrange(start=100, stop=700),
+            epocas=20000,
+            qtd_neuronios_camada_oculta=randrange(start=50, stop=150),
             sub_pasta='letras_e_numeros_placas/',
             momento=1,
         ),
