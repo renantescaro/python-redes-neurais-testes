@@ -9,11 +9,11 @@ class Tanh(AtivacaoContract):
     """
 
     def ativar(self, valor: Any) -> Any:
-        return (np.exp(valor) - np.exp(-valor)) / (np.exp(valor) + np.exp(-valor))
+        return np.tanh(valor)
 
 
     def derivar(self, valor: Any) -> Any:
-        return 1 - self.ativar(valor) * self.ativar(valor)
+        return 1.0 - np.tanh(valor)**2
 
 
     def __str__(self) -> str:
