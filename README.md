@@ -76,7 +76,7 @@ PORTA_APLICACAO = '80'
 
 ## Banco de Dados
 * Foi utilizado banco de dados MySQL / MariaDB para gravação de log / resultados.
-* Na raiz do projeto, arquivo 'banco.sql' posssui a estrutura do banco.
+* Na raiz do projeto, arquivo 'assets/banco.sql' posssui a estrutura do banco.
 * Não esqueça da string de conexão no arquivo '.env'
 
 <br><br>
@@ -86,6 +86,16 @@ PORTA_APLICACAO = '80'
 ```bash
 python run_web_app.py
 ```
+
+### Executar aplicação web em modo dev
+```bash
+set FLASK_APP=app
+set FLASK_ENV=development
+set FLASK_RUN_HOST=0.0.0.0
+set FLASK_RUN_PORT=80
+flask run
+```
+
 
 <br><br>
 
