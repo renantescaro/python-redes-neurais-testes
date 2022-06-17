@@ -1,5 +1,6 @@
 import os
 from typing import Any, List, Optional, Tuple
+from app.service.ativacoes.ativacao_contract import AtivacaoContract
 from app.service.imagem import Imagem
 
 
@@ -7,6 +8,7 @@ class Parametro:
     def __init__(
         self,
         imagem: Imagem,
+        ativacao: AtivacaoContract,
         apredizagem: float= 0.1,
         epocas: int= 1,
         momento: int= 1,
@@ -17,6 +19,7 @@ class Parametro:
         self.entradas = []
         self.saidas = []
         self.imagem = imagem
+        self.ativacao = ativacao
         self.apredizagem = apredizagem
         self.epocas = epocas
         self.momento = momento
@@ -53,7 +56,14 @@ class Parametro:
         nome = nome_imagem_com_extensao.replace('.png', '')
         caracter_entrada, _ = nome.split('_')
         binario = self._caracter_entrada_para_binario(caracter_entrada)
-        saida_numero = [int(bit) for bit in binario]
+        saida_numero = None
+
+        if str(self.ativacao) == 'sigmoid':
+            saida_numero = [int(bit) for bit in binario]
+
+        if str(self.ativacao) == 'tanh':
+            saida_numero = [-1 if int(bit) == 0 else 1 for bit in binario]
+
         self.saidas.append(saida_numero)
 
 
