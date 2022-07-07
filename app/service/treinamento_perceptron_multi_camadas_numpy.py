@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import typing as np_type
 from app.service.ativacoes import AtivacaoContract
 from app.service import Registro, Parametro, Log
 
@@ -62,13 +63,11 @@ class TreinamentoPerceptronMultiCamadas:
         """
         if self.resultados:
             print('\n\n\n-------------')
-            for index, linha in enumerate(self.resultados, start=1):
-                if (index % 2) == 0:
-                    numero_binario = ''.join(str(round(caracter)) for caracter in linha)
-                    numero_inteiro = int(numero_binario, 2)
+            for _, linha in enumerate(self.resultados, start=1):
+                numero_binario = ''.join(str(round(caracter)) for caracter in linha)
 
-                    print(f'{numero_inteiro} {numero_binario}')
-                    print('-------------')
+                print(f'{numero_binario}')
+                print('-------------')
 
 
     def _gerar_pesos(self) -> None:
@@ -80,23 +79,26 @@ class TreinamentoPerceptronMultiCamadas:
         self.entradas = np.array(self._parametro.entradas)
         self.saidas = np.array(self._parametro.saidas)
 
-        self.pesos_camada_oculta:np.ndarray = 2 * np.random.random((
-            len(self.entradas[0]),
-            self.qtd_neuronios_camada_oculta
-        )) -1
-        self.pesos_camada_saida:np.ndarray = 2 * np.random.random((
-            self.qtd_neuronios_camada_oculta,
-            len(self.saidas[0])
-        )) -1
+        self.pesos_camada_oculta:np_type.NDArray = 2 * np.random.random((
+            len(self.entradas[0]), # qtd linhas
+            self.qtd_neuronios_camada_oculta, # qtd colunas
+        )) -1 # torna negativo
+
+        self.pesos_camada_saida:np_type.NDArray = 2 * np.random.random((
+            self.qtd_neuronios_camada_oculta, # qtd linhas
+            len(self.saidas[0]), # qtd colunas
+        )) -1 # torna negativo
 
 
     def executar(self) -> float:
         self._gerar_pesos()
 
         parametro_id = self._registro.salvar(
-            self.qtd_neuronios_camada_oculta,
-            self.apredizagem,
-            self._ativacao,
+            qtd_neuronios_camada_oculta=self.qtd_neuronios_camada_oculta,
+            apredizagem=self.apredizagem,
+            funcao_ativacao=self._ativacao,
+            caminho_entradas=self._parametro.caminho_entradas,
+            cuda=0
         )
 
         porcentagem_erro = 0.0
@@ -114,7 +116,7 @@ class TreinamentoPerceptronMultiCamadas:
             porcentagem_erro = media_absoluta*100
 
             # evitar erros
-            if porcentagem_erro <  0.1:
+            if porcentagem_erro <  0.3:
                 self._registro.atualizar(
                     porcentagem_erro,
                     parametro_id
