@@ -5,7 +5,8 @@ from app.service.registro import Registro
 bp = Blueprint(
     'inical',
     __name__,
-    template_folder='templates' )
+    template_folder='templates'
+)
 
 
 class LogCtrl:
