@@ -16,11 +16,15 @@ class Registro:
         qtd_neuronios_camada_oculta:int,
         apredizagem:float,
         funcao_ativacao:AtivacaoContract,
+        caminho_entradas: str,
+        cuda: int
     ) -> Any:
         parametro_model = RegistroModel(
             qtd_neuronios_camada_oculta=qtd_neuronios_camada_oculta,
             apredizagem=apredizagem,
             funcao_ativacao=str(funcao_ativacao),
+            caminho_entradas=caminho_entradas,
+            cuda=cuda,
             cpu=self.cpu,
             vga=self.vga,
             data_inserido=Datas.data_hora_atual()
