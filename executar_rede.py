@@ -1,5 +1,5 @@
-from app.service.ativacoes import Sigmoid, Tanh
-from random import randrange
+from app.service.ativacoes import (
+    Sigmoid, Tanh, LeakyRelu)
 from app.service import (
     Imagem, Parametro,
     Dados, Grafico,
@@ -7,11 +7,11 @@ from app.service import (
 
 
 rede = PerceptronMultiCamadas(
-    dados=Dados(versao=4),
+    dados=Dados(versao=5),
     parametro=Parametro(
         ativacao=Tanh(),
         imagem=Imagem(),
-        sub_pasta='numeros_placas_teste/'
+        imagem_unica='assets/uploads/GUC1I97.png'
     )
 )
 rede.executar()

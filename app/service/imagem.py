@@ -1,4 +1,5 @@
 from PIL import Image
+from PIL.Image import Image as ImageType
 import numpy as np
 
 
@@ -11,9 +12,9 @@ class Imagem:
 
     def _abrir_imagem(self, caminho_arquivo:str) -> bool:
         try:
-            imagem:Image = Image.open(caminho_arquivo)
-            self.data  = np.array(imagem.convert('L'))
-            self.type  = type(self.data)
+            imagem:ImageType = Image.open(caminho_arquivo)
+            self.data = np.array(imagem.convert('L'))
+            self.type = type(self.data)
             self.shape = self.data.shape
             return True
         except Exception:
