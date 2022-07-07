@@ -1,5 +1,6 @@
 from flask import Flask
 from app.controllers.inicial_ctrl import bp as bp_inicial
+from app.controllers.rede_ctrl import bp as bp_rede
 
 
 def create_app(test_config=None):
@@ -18,4 +19,5 @@ def create_app(test_config=None):
 
     # adicionar rotas
     app.register_blueprint(bp_inicial)
+    app.register_blueprint(bp_rede)
     return app
