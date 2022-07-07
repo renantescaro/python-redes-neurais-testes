@@ -1,6 +1,8 @@
 
 assets/treinamento/*
 assets/pesos/*
+assets/uploads/*
+assets/comparacao_binarizacao/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
