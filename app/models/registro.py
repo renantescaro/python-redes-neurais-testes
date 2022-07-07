@@ -10,6 +10,7 @@ class RegistroModel(Base):
     apredizagem = Column(Float, unique=False, index=False)
     porcentagem_erro = Column(Float, unique=False, index=False)
     funcao_ativacao = Column(String, unique=False, index=False)
+    caminho_entradas = Column(String, unique=False, index=False)
     cpu = Column(String, unique=False, index=False)
     vga = Column(String, unique=False, index=False)
     cuda = Column(Integer, unique=False, index=False)
